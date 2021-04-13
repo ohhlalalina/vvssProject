@@ -73,11 +73,7 @@ public class AssignTest {
         myObj.delete();
     }
 
-    @Test
-    public void addAssignment_id_null(){
-        int added = service.saveTema(null, "Descriere", 10, 8);
-        assertEquals(0, added);
-    }
+
 
     @Test
     public void addAssignment_id_empty(){
