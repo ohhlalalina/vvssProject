@@ -2,6 +2,7 @@ package service;
 
 import domain.*;
 import repository.*;
+import validation.ValidationException;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -26,10 +27,13 @@ public class Service {
 
     public int saveStudent(String id, String nume, int grupa) {
         Student student = new Student(id, nume, grupa);
-        Student result = studentXmlRepo.save(student);
-
-        if (result == null) {
-            return 1;
+        try{
+            Student result = studentXmlRepo.save(student);
+            if (result == null) {
+                return 1;
+            }
+        }catch (ValidationException e) {
+            System.out.println(e.toString());
         }
         return 0;
     }
@@ -61,14 +65,26 @@ public class Service {
             if (predata - deadline > 2) {
                 valNota =  1;
             } else {
-                valNota =  valNota - 2.5 * (predata - deadline);
+                if( predata > deadline) {
+                    valNota =  valNota - 2.5 * (predata - deadline);
+                }
+                if ( valNota < 0 ) {
+                    valNota = 1;
+                }
             }
             Nota nota = new Nota(new Pair(idStudent, idTema), valNota, predata, feedback);
-            Nota result = notaXmlRepo.save(nota);
+            try{
+                Nota result = notaXmlRepo.save(nota);
 
-            if (result == null) {
-                return 1;
+                if (result == null) {
+                    return 1;
+                }
+            }catch (ValidationException e) {
+                System.out.println("1111111111111111");
+
+                System.out.println(e.toString());
             }
+
             return 0;
         }
     }

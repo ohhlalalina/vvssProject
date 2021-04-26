@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="app-master" />
         <module name="app" />
+        <module name="app-master" />
+        <module name="vvssProject" />
       </profile>
     </annotationProcessing>
   </component>
